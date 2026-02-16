@@ -1,8 +1,8 @@
 namespace Errekuperaketa
 {
-    public partial class Form1 : Form
+    public partial class Nagusia : Form
     {
-        public Form1()
+        public Nagusia()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Errekuperaketa
 {
-    partial class Form1
+    partial class Nagusia
     {
         /// <summary>
         ///  Required designer variable.
