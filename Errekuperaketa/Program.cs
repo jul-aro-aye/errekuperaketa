@@ -1,3 +1,5 @@
+using Errekuperaketa.View;
+
 namespace Errekuperaketa
 {
     internal static class Program
