@@ -23,6 +23,20 @@ namespace Errekuperaketa.View
 
             if (dgvPelikulak.Columns["Ezabatuta"] != null)
                 dgvPelikulak.Columns["Ezabatuta"].Visible = false;
+
+            // Zutabeen izen pertsonalizatuak
+            if (dgvPelikulak.Columns["PelikulaId"] != null)
+                dgvPelikulak.Columns["PelikulaId"].HeaderText = "ID";
+
+            if (dgvPelikulak.Columns["Izenburua"] != null)
+                dgvPelikulak.Columns["Izenburua"].HeaderText = "Pelikula";
+
+            if (dgvPelikulak.Columns["Deskribapena"] != null)
+                dgvPelikulak.Columns["Deskribapena"].HeaderText = "Deskribapena";
+
+            if (dgvPelikulak.Columns["EserlekuGuztira"] != null)
+                dgvPelikulak.Columns["EserlekuGuztira"].HeaderText = "Eserleku Libreak";
+
         }
 
         private void FormNagusia_Load(object sender, EventArgs e)
