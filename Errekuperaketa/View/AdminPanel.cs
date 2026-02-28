@@ -23,13 +23,49 @@ namespace Errekuperaketa.View
         private void KargatuPelikulak()
         {
             List<Pelikula> lista = pelikulaController.GetPelikulakGuztiak();
+
+            dgvAdminPelikulak.DataSource = null;
             dgvAdminPelikulak.DataSource = lista;
 
-            dgvAdminPelikulak.Columns["PelikulaId"].HeaderText = "ID";
-            dgvAdminPelikulak.Columns["Izenburua"].HeaderText = "Pelikula";
-            dgvAdminPelikulak.Columns["Deskribapena"].HeaderText = "Deskribapena";
-            dgvAdminPelikulak.Columns["EserlekuGuztira"].HeaderText = "Eserleku Guztira";
-            dgvAdminPelikulak.Columns["Ezabatuta"].HeaderText = "Soft Delete";
+            // Zutabeen izen pertsonalizatuak
+            if (dgvAdminPelikulak.Columns["PelikulaId"] != null)
+                dgvAdminPelikulak.Columns["PelikulaId"].HeaderText = "ID";
+
+            if (dgvAdminPelikulak.Columns["Izenburua"] != null)
+                dgvAdminPelikulak.Columns["Izenburua"].HeaderText = "Pelikula";
+
+            if (dgvAdminPelikulak.Columns["Deskribapena"] != null)
+                dgvAdminPelikulak.Columns["Deskribapena"].HeaderText = "Deskribapena";
+
+            if (dgvAdminPelikulak.Columns["EserlekuGuztira"] != null)
+                dgvAdminPelikulak.Columns["EserlekuGuztira"].HeaderText = "Eserleku Guztira";
+
+            if (dgvAdminPelikulak.Columns["Ezabatuta"] != null)
+                dgvAdminPelikulak.Columns["Ezabatuta"].HeaderText = "Ezabatua";
+
+            // Eserleku libreak zutabe berria gehitu
+            if (!dgvAdminPelikulak.Columns.Contains("EserlekuLibreak"))
+            {
+                DataGridViewTextBoxColumn libreCol = new DataGridViewTextBoxColumn();
+                libreCol.Name = "EserlekuLibreak";
+                libreCol.HeaderText = "Eserleku libreak";
+                libreCol.ReadOnly = true;
+                dgvAdminPelikulak.Columns.Add(libreCol);
+
+                // EserlekuGuztira zutabearen ondoren erakusteko
+                if (dgvAdminPelikulak.Columns["EserlekuGuztira"] != null)
+                {
+                    libreCol.DisplayIndex = dgvAdminPelikulak.Columns["EserlekuGuztira"].DisplayIndex + 1;
+                }
+            }
+
+            // Eserleku libreak kalkulatu
+            foreach (DataGridViewRow row in dgvAdminPelikulak.Rows)
+            {
+                Pelikula p = row.DataBoundItem as Pelikula;
+                int erreserbatutakoak = pelikulaController.GetEserlekuErreserbatutakoak(p.PelikulaId);
+                row.Cells["EserlekuLibreak"].Value = p.EserlekuGuztira - erreserbatutakoak;
+            }
 
             dgvAdminPelikulak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }

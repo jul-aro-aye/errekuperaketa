@@ -19,6 +19,7 @@ namespace Errekuperaketa.View
         {
             List<Pelikula> lista = pelikulaController.GetPelikulakAktiboak();
 
+            dgvPelikulak.DataSource = null;
             dgvPelikulak.DataSource = lista;
 
             if (dgvPelikulak.Columns["Ezabatuta"] != null)
@@ -36,6 +37,23 @@ namespace Errekuperaketa.View
 
             if (dgvPelikulak.Columns["EserlekuGuztira"] != null)
                 dgvPelikulak.Columns["EserlekuGuztira"].HeaderText = "Eserlekuak Guztira";
+
+            if (!dgvPelikulak.Columns.Contains("EserlekuLibreak"))
+            {
+                DataGridViewTextBoxColumn libreCol = new DataGridViewTextBoxColumn();
+                libreCol.Name = "EserlekuLibreak";
+                libreCol.HeaderText = "Eserleku libreak";
+                libreCol.ReadOnly = true;
+                dgvPelikulak.Columns.Add(libreCol);
+            }
+
+            // Eserleku libreak kalkulatu
+            foreach (DataGridViewRow row in dgvPelikulak.Rows)
+            {
+                Pelikula p = row.DataBoundItem as Pelikula;
+                int erreserbatutakoak = pelikulaController.GetEserlekuErreserbatutakoak(p.PelikulaId);
+                row.Cells["EserlekuLibreak"].Value = p.EserlekuGuztira - erreserbatutakoak;
+            }
 
         }
 

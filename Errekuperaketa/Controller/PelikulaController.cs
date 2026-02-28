@@ -199,5 +199,21 @@ namespace Errekuperaketa.Controller
                 LogMugimendua($"Berreskuratu | PelikulaId: {id}");
             }
         }
+
+        public int GetEserlekuErreserbatutakoak(int pelikulaId)
+        {
+            int total = 0;
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT SUM(eserlekuKopurua) as total FROM erreserba WHERE pelikulaId = @pid";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@pid", pelikulaId);
+                object result = cmd.ExecuteScalar();
+                if (result != DBNull.Value)
+                    total = Convert.ToInt32(result);
+            }
+            return total;
+        }
     }
 }
