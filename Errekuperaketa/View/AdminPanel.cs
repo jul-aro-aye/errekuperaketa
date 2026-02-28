@@ -68,6 +68,12 @@ namespace Errekuperaketa.View
             }
 
             dgvAdminPelikulak.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvAdminPelikulak.Columns["PelikulaId"].DisplayIndex = 0;
+            dgvAdminPelikulak.Columns["Izenburua"].DisplayIndex = 1;
+            dgvAdminPelikulak.Columns["Deskribapena"].DisplayIndex = 2;
+            dgvAdminPelikulak.Columns["EserlekuGuztira"].DisplayIndex = 3;
+            dgvAdminPelikulak.Columns["EserlekuLibreak"].DisplayIndex = 4;
         }
 
         // Sortu pelikula

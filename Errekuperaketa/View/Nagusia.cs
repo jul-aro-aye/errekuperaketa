@@ -44,6 +44,7 @@ namespace Errekuperaketa.View
                 libreCol.Name = "EserlekuLibreak";
                 libreCol.HeaderText = "Eserleku libreak";
                 libreCol.ReadOnly = true;
+
                 dgvPelikulak.Columns.Add(libreCol);
             }
 
@@ -51,10 +52,20 @@ namespace Errekuperaketa.View
             foreach (DataGridViewRow row in dgvPelikulak.Rows)
             {
                 Pelikula p = row.DataBoundItem as Pelikula;
-                int erreserbatutakoak = pelikulaController.GetEserlekuErreserbatutakoak(p.PelikulaId);
-                row.Cells["EserlekuLibreak"].Value = p.EserlekuGuztira - erreserbatutakoak;
+                if (p != null)
+                {
+                    int erreserbatutakoak = pelikulaController.GetEserlekuErreserbatutakoak(p.PelikulaId);
+                    row.Cells["EserlekuLibreak"].Value = p.EserlekuGuztira - erreserbatutakoak;
+                }
             }
+            // Aukeratutako pelikula lehenengo ilaratik label eguneratzeko
+            eserlekuLibreak(null, null);
 
+            dgvPelikulak.Columns["PelikulaId"].DisplayIndex = 0;
+            dgvPelikulak.Columns["Izenburua"].DisplayIndex = 1;
+            dgvPelikulak.Columns["Deskribapena"].DisplayIndex = 2;
+            dgvPelikulak.Columns["EserlekuGuztira"].DisplayIndex = 3;
+            dgvPelikulak.Columns["EserlekuLibreak"].DisplayIndex = 4;
         }
 
         private void FormNagusia_Load(object sender, EventArgs e)
@@ -67,14 +78,18 @@ namespace Errekuperaketa.View
             KargatuPelikulak();
         }
 
-        private void eserlekuLibreak(object sender, EventArgs e)
-        {
-            // Libre dauden eserleku kopurua erakusteko
-        }
-
         private void btnErreserbatu_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Erreserba egiten");
+            if (dgvPelikulak.CurrentRow == null) return;
+
+            Pelikula aukeratutakoPelikula = dgvPelikulak.CurrentRow.DataBoundItem as Pelikula;
+            if (aukeratutakoPelikula == null) return;
+
+            ErreserbaPanel panel = new ErreserbaPanel(aukeratutakoPelikula);
+            panel.ShowDialog();
+
+            // Kargatu berriro Nagusia
+            KargatuPelikulak();
         }
 
         private void btnAdmin_Click(object sender, EventArgs e)
@@ -82,6 +97,20 @@ namespace Errekuperaketa.View
             AdminPanel panel = new AdminPanel();
 
             panel.ShowDialog();
+        }
+
+        private void eserlekuLibreak(object sender, EventArgs e)
+        {
+            // Aukeratutako pelikula hartu
+            if (dgvPelikulak.CurrentRow != null)
+            {
+                Pelikula p = dgvPelikulak.CurrentRow.DataBoundItem as Pelikula;
+                if (p != null)
+                {
+                    int erreserbatutakoak = pelikulaController.GetEserlekuErreserbatutakoak(p.PelikulaId);
+                    lblEserlekuLibre.Text = $"Eserleku libre: {p.EserlekuGuztira - erreserbatutakoak}";
+                }
+            }
         }
     }
 }

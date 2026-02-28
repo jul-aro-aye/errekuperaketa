@@ -215,5 +215,22 @@ namespace Errekuperaketa.Controller
             }
             return total;
         }
+
+        public void SortuErreserba(int pelikulaId, string izena, int kopurua)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "INSERT INTO erreserba (pelikulaId, erreserbaIzena, eserlekuKopurua) " +
+                               "VALUES (@pid, @izena, @kopurua)";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@pid", pelikulaId);
+                cmd.Parameters.AddWithValue("@izena", izena);
+                cmd.Parameters.AddWithValue("@kopurua", kopurua);
+                cmd.ExecuteNonQuery();
+            }
+
+            LogMugimendua($"Erreserba: {izena}, PelikulaId: {pelikulaId}, Kopurua: {kopurua}");
+        }
     }
 }
