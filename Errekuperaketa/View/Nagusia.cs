@@ -1,18 +1,38 @@
 using System;
 using System.Windows.Forms;
 
+using Errekuperaketa.Controller;
+using Errekuperaketa.Model;
+using System.Collections.Generic;
+
 namespace Errekuperaketa.View
 {
     public partial class Nagusia : Form
     {
+        private PelikulaController pelikulaController = new PelikulaController();
         public Nagusia()    
         {
             InitializeComponent();
         }
 
+        private void KargatuPelikulak()
+        {
+            List<Pelikula> lista = pelikulaController.GetPelikulakAktiboak();
+
+            dgvPelikulak.DataSource = lista;
+
+            if (dgvPelikulak.Columns["Ezabatuta"] != null)
+                dgvPelikulak.Columns["Ezabatuta"].Visible = false;
+        }
+
         private void FormNagusia_Load(object sender, EventArgs e)
         {
-            // Pelikulak datu base edo beste iturri batetik kargatzeko
+            KargatuPelikulak();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            KargatuPelikulak();
         }
 
         private void eserlekuLibreak(object sender, EventArgs e)
@@ -28,11 +48,6 @@ namespace Errekuperaketa.View
         private void btnAdmin_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Admnistrazio panela");
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Eguneraketa panela");
         }
     }
 }
