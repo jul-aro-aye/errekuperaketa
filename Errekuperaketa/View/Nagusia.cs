@@ -35,7 +35,7 @@ namespace Errekuperaketa.View
                 dgvPelikulak.Columns["Deskribapena"].HeaderText = "Deskribapena";
 
             if (dgvPelikulak.Columns["EserlekuGuztira"] != null)
-                dgvPelikulak.Columns["EserlekuGuztira"].HeaderText = "Eserleku Libreak";
+                dgvPelikulak.Columns["EserlekuGuztira"].HeaderText = "Eserlekuak Guztira";
 
         }
 
@@ -61,7 +61,9 @@ namespace Errekuperaketa.View
 
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Admnistrazio panela");
+            AdminPanel panel = new AdminPanel();
+
+            panel.ShowDialog();
         }
     }
 }
