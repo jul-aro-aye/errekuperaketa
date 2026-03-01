@@ -61,11 +61,6 @@
             this.lblLibre.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
 
             // DataGridView
-            //this.dgvErreserbak.Dock = System.Windows.Forms.DockStyle.Fill;
-            //this.dgvErreserbak.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            //this.dgvErreserbak.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            //this.dgvErreserbak.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            //this.dgvErreserbak.MultiSelect = false;
 
             this.dgvErreserbak.Location = new System.Drawing.Point(12, 12);
             this.dgvErreserbak.Name = "dgvErreserbaPelikulak";

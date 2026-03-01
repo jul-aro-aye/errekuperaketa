@@ -232,5 +232,21 @@ namespace Errekuperaketa.Controller
 
             LogMugimendua($"Erreserba: {izena}, PelikulaId: {pelikulaId}, Kopurua: {kopurua}");
         }
+
+        public bool ErreserbakDitu(int pelikulaId)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM erreserba WHERE pelikulaId = @id";
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", pelikulaId);
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    return count > 0;
+                }
+            }
+        }
+
     }
 }

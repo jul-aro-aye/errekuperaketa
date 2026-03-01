@@ -45,6 +45,14 @@ namespace Errekuperaketa.View
             if (dgvEzabatuta.CurrentRow != null)
             {
                 int id = (int)dgvEzabatuta.CurrentRow.Cells["PelikulaId"].Value;
+                
+                bool erreserbakDitu = pelikulaController.ErreserbakDitu(id);
+
+                if (erreserbakDitu)
+                {
+                    MessageBox.Show("Pelikula honek erreserbak dituenez, ezin da betirako ezabatu.", "Errorea", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 pelikulaController.HardDelete(id);
                 KargatuEzabatuta();
             }

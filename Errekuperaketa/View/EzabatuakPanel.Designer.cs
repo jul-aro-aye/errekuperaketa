@@ -27,8 +27,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEzabatuta)).BeginInit();
             this.SuspendLayout();
 
+            this.ClientSize = new System.Drawing.Size(900, 500);
+            this.MinimumSize = new System.Drawing.Size(700, 400);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Pelikula Ezabatuak";
+            this.Load += new System.EventHandler(this.DeletedPanel_Load);
+
+
             // dgvEzabatuta
-            this.dgvEzabatuta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEzabatuta.Location = new System.Drawing.Point(12, 40);
             this.dgvEzabatuta.Name = "dgvEzabatuta";
             this.dgvEzabatuta.Size = new System.Drawing.Size(560, 300);
@@ -36,6 +42,8 @@
                                      System.Windows.Forms.AnchorStyles.Bottom |
                                      System.Windows.Forms.AnchorStyles.Left |
                                      System.Windows.Forms.AnchorStyles.Right;
+            this.dgvEzabatuta.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+
 
             // lblInfo
             this.lblInfo.AutoSize = true;
